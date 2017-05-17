@@ -201,6 +201,7 @@ from keras.layers.pooling import MaxPooling2D
 from keras.preprocessing.image import ImageDataGenerator
 from keras.optimizers import Adam
 from keras.regularizers import l2
+from keras.callbacks import CSVLogger, TensorBoard
 
 # Implementing Nvidia Self-driven car CNN model
 model = Sequential()
@@ -280,8 +281,13 @@ model.compile(loss='mse', optimizer=Adam(lr=1e-4))
 #model.fit_generator(datagen.flow(X_train, y_train, validation_split=0.2, shuffle=True, batch_size=128),
 #                    steps_per_epoch=len(X_train) / 128, nb_epoch=10)
 
+# Callbacks
+# Callback that streams epoch results to a csv file
+csv_logger = CSVLogger('training.log')
+tensorBoard = TensorBoard(log_dir='./logs', histogram_freq=0, write_graph=True, write_images=False)
+
 # Running the model
-model.fit(X_train, y_train, validation_split=0.2, shuffle=True, nb_epoch=10)
+model.fit(X_train, y_train, callbacks=[csv_logger, tensorBoard], validation_split=0.2, shuffle=True, nb_epoch=10)
 
 # model.fit_generator(train_generator, samples_per_epoch=len(train_samples),
 # 					validation_data=validation_generator,
