@@ -126,6 +126,5 @@ I used this training data for training the model. The validation set helped dete
 ![alt text][image4]
 
 ### Video of Autonomous Car driven by the Convolutional Neural Network
-[![Simulator in Autonomous Mode](http://youtu.be/HPEPZgfaWCA/0.jpg)](http://youtu.be/HPEPZgfaWCA)
-
+[![Simulator in Autonomous Mode](https://img.youtube.com/vi/HPEPZgfaWCA/0.jpg)](http://youtu.be/HPEPZgfaWCA)
 
