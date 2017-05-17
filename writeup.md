@@ -14,10 +14,9 @@ The goals / steps of this project are the following:
 [//]: # (Image References)
 
 [image1]: ./writeup_images/NvidiaArchitecture.png "Model Visualization"
-[image2]: ./writeup_images/training_epochs.png "Epochs"
-[image3]: ./examples/placeholder_small.png "Recovery Image"
-[image6]: ./examples/placeholder_small.png "Normal Image"
-[image7]: ./examples/placeholder_small.png "Flipped Image"
+[image2]: ./writeup_images/CNN_TensorBoard.png "TensorBoard Graph"
+[image3]: ./writeup_images/TensorBoard_loss.png "TensorBoard Loss progress"
+[image4]: ./writeup_images/training_epochs.png "Epochs"
 
 ## Rubric Points
 * I have implemented Nvidia Self-Driven Car CNN Architeture in this project. This consist in 5 Convolutional Layers and 3 Flat Layers. I have added on top of that a Poolmax Layer. Also, for the activation I have used an 'ELU' function instad of 'RELU', it is faster. Normalization is included as a first layer as part of the CNN. This makes it faster process. 
@@ -33,7 +32,7 @@ The goals / steps of this project are the following:
   * All Data is preprocessed to use YUV color space. The reason for this is that the CNN perform better in this kind of color spaces.
 
 ---
-###Files Submitted & Code Quality
+### Files Submitted & Code Quality
 
 My project includes the following files:
 * car_train.py containing the script to create and train the model
@@ -41,41 +40,41 @@ My project includes the following files:
 * model.h5 containing a trained convolution neural network 
 * writeup.md summarizing the results
 
-####2. Submission includes functional code
+#### 2. Submission includes functional code
 Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the track by executing 
 ```sh
 python drive.py model.h5
 ```
 
-####3. Submission code is usable and readable
+#### 3. Submission code is usable and readable
 
-The car_train.py file contains the code for training and saving the convolution neural network. The file shows the pipeline I used for training and validating the model, and it contains comments to explain how the code works.
+The **car_train.py** file contains the code for training and saving the convolution neural network. The file shows the pipeline I used for training and validating the model, and it contains comments to explain how the code works. Additionally I have included loggin options to use **TensorBoard** to monitor training loss and validation loss in real time.
 
-###Model Architecture and Training Strategy
+### Model Architecture and Training Strategy
 
-####1. An appropriate model architecture has been employed
+#### 1. An appropriate model architecture has been employed
 
 My model consists of a convolution neural network with 3x3 filter sizes and depths between 32 and 128 (model.py lines 18-24) 
 
 The model includes ELU layers to introduce nonlinearity (code line 20), and the data is normalized in the model using a Keras lambda layer (code line 18). 
 
-####2. Attempts to reduce overfitting in the model
+#### 2. Attempts to reduce overfitting in the model
 
 The model contains dropout layers in order to reduce overfitting (model.py lines 21). 
 
 The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 10-16). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
-####3. Model parameter tuning
+#### 3. Model parameter tuning
 
 The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 25).
 
-####4. Appropriate training data
+#### 4. Appropriate training data
 
 Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road ... I used also al cameras available for the training. As suggested in the lesson using left and right camera to apply an extra turn correction.
 
 ###Model Architecture and Training Strategy
 
-####1. Solution Design Approach
+#### 1. Solution Design Approach
 
 The overall strategy for deriving a model architecture was to ...
 
@@ -91,15 +90,19 @@ The final step was to run the simulator to see how well the car was driving arou
 
 At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
 
-####2. Final Model Architecture
+#### 2. Final Model Architecture
 
 The final model architecture (car_train.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes ...
 
-Here is a visualization of the architecture
+Here is a visualization of the Nvidia Self-Driven Car Architecture that I implemented. The image is missing the PoolMax layer though.
 
 ![alt text][image1]
 
-####3. Creation of the Training Set & Training Process
+In addition you can see an image from TensorBoard that represent how the architecture perform in every single epoch:
+
+![alt text][image2]
+
+#### 3. Creation of the Training Set & Training Process
 
 The training data was collected in various phases.
   * One normal lap in target track
@@ -114,14 +117,15 @@ After the collection process, I had 43878 number of data points. I then preproce
 * Normalization. This is done as a CNN layer
 * Cropped to simplify the learning process for the CNN.
 
-Bellow is an example of input image and what the CNN sees
+I finally randomly shuffled the data set and put 20% of the data into a validation set. 
 
-![alt text][image2]
+I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 10 as evidenced by the fact that both training loss and validation loss decrease accordingly and in a stady way. I used an adam optimizer so that manually training the learning rate wasn't necessary. Looking into the TensorBoard image we can see how the Training Loss and the Validation Loss progress
 
 ![alt text][image3]
 
-I finally randomly shuffled the data set and put 20% of the data into a validation set. 
+![alt text][image4]
 
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 10 as evidenced by the fact that both training loss and validation loss decrease accordingly and in a stady way. I used an adam optimizer so that manually training the learning rate wasn't necessary.
+### Video of Autonomous Car driven by the Convolutional Neural Network
+[![Simulator in Autonomous Mode](http://youtu.be/HPEPZgfaWCA/0.jpg)](http://youtu.be/HPEPZgfaWCA)
 
-![alt text][image2]
+
