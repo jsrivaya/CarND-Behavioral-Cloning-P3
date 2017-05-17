@@ -14,10 +14,8 @@ The goals / steps of this project are the following:
 [//]: # (Image References)
 
 [image1]: ./writeup_images/NvidiaArchitecture.png "Model Visualization"
-[image2]: ./examples/placeholder.png "Grayscaling"
+[image2]: ./writeup_images/training_epochs.png "Epochs"
 [image3]: ./examples/placeholder_small.png "Recovery Image"
-[image4]: ./examples/placeholder_small.png "Recovery Image"
-[image5]: ./examples/placeholder_small.png "Recovery Image"
 [image6]: ./examples/placeholder_small.png "Normal Image"
 [image7]: ./examples/placeholder_small.png "Flipped Image"
 
@@ -73,9 +71,7 @@ The model used an adam optimizer, so the learning rate was not tuned manually (m
 
 ####4. Appropriate training data
 
-Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road ... 
-
-For details about how I created the training data, see the next section. 
+Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road ... I used also al cameras available for the training. As suggested in the lesson using left and right camera to apply an extra turn correction.
 
 ###Model Architecture and Training Strategy
 
@@ -87,9 +83,9 @@ My first step was to use a convolution neural network model similar to the ... I
 
 In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. 
 
-To combat the overfitting, I modified the model so that ...
+To combat the overfitting, I modified the model so that I use regularizer in all the layers.
 
-Then I ... 
+Then I apply Dropout between the first two flat layers with a retention rate of 80%
 
 The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track... to improve the driving behavior in these cases, I ....
 
@@ -126,4 +122,6 @@ Bellow is an example of input image and what the CNN sees
 
 I finally randomly shuffled the data set and put 20% of the data into a validation set. 
 
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 7 as evidenced by the fact that both training loss and validation loss decrease accordingly and in a similar way. I used an adam optimizer so that manually training the learning rate wasn't necessary.
+I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 10 as evidenced by the fact that both training loss and validation loss decrease accordingly and in a stady way. I used an adam optimizer so that manually training the learning rate wasn't necessary.
+
+![alt text][image2]
