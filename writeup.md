@@ -1,8 +1,3 @@
-#**Behavioral Cloning** 
-
-##Writeup Template
-
-###You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
 
 ---
 
@@ -27,18 +22,26 @@ The goals / steps of this project are the following:
 [image7]: ./examples/placeholder_small.png "Flipped Image"
 
 ## Rubric Points
-###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
+* I have implemented Nvidia Self-Driven Car CNN Architeture in this project. This consist in 5 Convolutional Layers and 3 Flat Layers. I have added on top of that a Poolmax Layer. Also, for the activation I have used an 'ELU' function instad of 'RELU', it is faster. Normalization is included as a first layer as part of the CNN. This makes it faster process. 
+* The collected data has been devided in a 80/20 data sets for training and validation. Also, I have included Dropout layers in the between the first two flat layers to avoid overfitting.
+* I have decided to use an Adam optimizer since it provided good results in the traffic sign recognition lab.
+* The training data was collected in various phases.
+  * One normal lap
+  * One uncompleted lap going out and back in the track
+  * One lap in the second track. This turned out to be a game changer and stated having much better results. The reson looks to be that the second track includes more winding roads than the first track so the model learns how to do sharper turns
+  * One smooth lap in the first track.
+  * All Data is flipped to simulate mirror driving
+  * All Data is preprocessed with a Gaussian Blur filter
+  * All Data is preprocessed to use YUV color space. The reason for this is that the CNN perform better in this kind of color spaces.
 
 ---
 ###Files Submitted & Code Quality
 
-####1. Submission includes all required files and can be used to run the simulator in autonomous mode
-
 My project includes the following files:
-* model.py containing the script to create and train the model
+* car_train.py containing the script to create and train the model
 * drive.py for driving the car in autonomous mode
 * model.h5 containing a trained convolution neural network 
-* writeup_report.md or writeup_report.pdf summarizing the results
+* writeup.md summarizing the results
 
 ####2. Submission includes functional code
 Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the track by executing 
@@ -48,7 +51,7 @@ python drive.py model.h5
 
 ####3. Submission code is usable and readable
 
-The model.py file contains the code for training and saving the convolution neural network. The file shows the pipeline I used for training and validating the model, and it contains comments to explain how the code works.
+The car_train.py file contains the code for training and saving the convolution neural network. The file shows the pipeline I used for training and validating the model, and it contains comments to explain how the code works.
 
 ###Model Architecture and Training Strategy
 
@@ -56,7 +59,7 @@ The model.py file contains the code for training and saving the convolution neur
 
 My model consists of a convolution neural network with 3x3 filter sizes and depths between 32 and 128 (model.py lines 18-24) 
 
-The model includes RELU layers to introduce nonlinearity (code line 20), and the data is normalized in the model using a Keras lambda layer (code line 18). 
+The model includes ELU layers to introduce nonlinearity (code line 20), and the data is normalized in the model using a Keras lambda layer (code line 18). 
 
 ####2. Attempts to reduce overfitting in the model
 
