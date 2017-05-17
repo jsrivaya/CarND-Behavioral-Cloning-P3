@@ -13,7 +13,7 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/placeholder.png "Model Visualization"
+[image1]: ./writeup_images/NvidiaArchitecture.png "Model Visualization"
 [image2]: ./examples/placeholder.png "Grayscaling"
 [image3]: ./examples/placeholder_small.png "Recovery Image"
 [image4]: ./examples/placeholder_small.png "Recovery Image"
@@ -97,36 +97,33 @@ At the end of the process, the vehicle is able to drive autonomously around the 
 
 ####2. Final Model Architecture
 
-The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes ...
+The final model architecture (car_train.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes ...
 
-Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
+Here is a visualization of the architecture
 
 ![alt text][image1]
 
 ####3. Creation of the Training Set & Training Process
 
-To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
+The training data was collected in various phases.
+  * One normal lap in target track
+  * One uncompleted lap going out of the track and recovering. This was done for both right and left sides of the road
+  * One lap in the second track. This turned out to be a game changer and stated having much better results. The reson looks to be that the second track includes more winding roads than the first track so the model learns how to do sharper turns
+  * One smooth lap in the target track.
+  * All Data is flipped to simulate mirror driving
+
+After the collection process, I had 43878 number of data points. I then preprocessed this data by:
+* Using Gaussian Blur filter with a 3x3 kernel
+* Convert to YUV color space. The reason for this is that the CNN perform better in this kind of color spaces.
+* Normalization. This is done as a CNN layer
+* Cropped to simplify the learning process for the CNN.
+
+Bellow is an example of input image and what the CNN sees
 
 ![alt text][image2]
 
-I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to .... These images show what a recovery looks like starting from ... :
-
 ![alt text][image3]
-![alt text][image4]
-![alt text][image5]
 
-Then I repeated this process on track two in order to get more data points.
+I finally randomly shuffled the data set and put 20% of the data into a validation set. 
 
-To augment the data sat, I also flipped images and angles thinking that this would ... For example, here is an image that has then been flipped:
-
-![alt text][image6]
-![alt text][image7]
-
-Etc ....
-
-After the collection process, I had X number of data points. I then preprocessed this data by ...
-
-
-I finally randomly shuffled the data set and put Y% of the data into a validation set. 
-
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was Z as evidenced by ... I used an adam optimizer so that manually training the learning rate wasn't necessary.
+I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 7 as evidenced by the fact that both training loss and validation loss decrease accordingly and in a similar way. I used an adam optimizer so that manually training the learning rate wasn't necessary.
